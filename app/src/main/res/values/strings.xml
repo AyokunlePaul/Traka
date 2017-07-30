@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Traka</string>
+    <string name="get_current_location">Get Current Location</string>
+    <string name="location">Location</string>
+    <string name="display">Display</string>
+    <string name="best_regards">Best Regards \nAyokunle Paul.</string>
+    <string name="start_location_update">Start Location Update</string>
+    <string name="display_on_google_maps">Display on Map</string>
+    <string name="name_of_place">Enter the name of place</string>
+    <string name="go">Go</string>
+</resources>
