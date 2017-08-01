@@ -23,7 +23,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.hello_maps);
 
-
         latitude = getIntent().getDoubleExtra(LocationActivity.LATITUDE, 0.0);
         longitude = getIntent().getDoubleExtra(LocationActivity.LONGITUDE, 0.0);
         locationName = getIntent().getStringExtra(LocationActivity.NAME_OF_PLACE);
@@ -37,6 +36,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         map = googleMap;
         LatLng NACOSS_OAU = new LatLng(latitude, longitude);
         map.addMarker(new MarkerOptions().position(NACOSS_OAU).title(locationName));
+        map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+        map.setTrafficEnabled(true);
+//        map.
         map.moveCamera(CameraUpdateFactory.newLatLng(NACOSS_OAU));
     }
 }

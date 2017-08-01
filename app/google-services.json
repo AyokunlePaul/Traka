@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "630437435294",
+    "firebase_url": "https://traka-f759e.firebaseio.com",
+    "project_id": "traka-f759e",
+    "storage_bucket": "traka-f759e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:630437435294:android:b4ab4262c655368b",
+        "android_client_info": {
+          "package_name": "i.am.eipeks.traka"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "630437435294-r7982ff7cuqlrkm3f31bnd19u9jhci00.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "i.am.eipeks.traka",
+            "certificate_hash": "6e130d569ef39540eb17053729e33067569e4a2c"
+          }
+        },
+        {
+          "client_id": "630437435294-qvqd7cs2meipkclu5g5fkfe9kppvi5v3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApkBgreW1F1N-sbiGsWpV8XhCF5dpy4w0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "630437435294-qvqd7cs2meipkclu5g5fkfe9kppvi5v3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
