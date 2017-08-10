@@ -17,9 +17,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
-            android:hint="@string/email_or_phone"
+            android:hint="@string/username"
             android:layout_marginBottom="20dp"
-            android:id="@+id/email_or_phone"
+            android:id="@+id/username"
             android:lines="1"/>
 
     </android.support.design.widget.TextInputLayout>

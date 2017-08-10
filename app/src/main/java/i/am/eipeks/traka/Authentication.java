@@ -14,6 +14,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.firebase.auth.FirebaseAuth;
 
 
 public class Authentication extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
@@ -24,6 +25,8 @@ public class Authentication extends AppCompatActivity implements GoogleApiClient
     private static final String TAG = "Authentication";
     private static final int SIGN_IN_REQUEST_CODE = 9001;
 
+    private FirebaseAuth auth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +34,8 @@ public class Authentication extends AppCompatActivity implements GoogleApiClient
 
         GoogleSignInOptions signInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail().build();
+
+        auth = FirebaseAuth.getInstance();
 
         apiClient = new GoogleApiClient.Builder(this)
         .enableAutoManage(this, this)
@@ -69,4 +74,9 @@ public class Authentication extends AppCompatActivity implements GoogleApiClient
         }
 
     }
+
+    public void authenticateUser(String email, String password){
+        auth.signInWithEmailAndPassword(email, password);
+    }
+
 }
