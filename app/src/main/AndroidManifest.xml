@@ -14,19 +14,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar" >
-        <activity android:name=".Home" >
 
-        </activity>
-        <activity android:name=".LocationActivity">
-
-        </activity>
-
-        <activity android:name=".MapsActivity"
-            android:theme="@style/AppTheme">
-
-        </activity>
-
-        <activity android:name=".Authentication">
+        <activity android:name=".activities.Home"/>
+        <activity android:name=".activities.LocationActivity"/>
+        <activity android:name=".activities.MapsActivity"
+            android:theme="@style/AppTheme"/>
+        <activity android:name=".authentication.Authentication">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

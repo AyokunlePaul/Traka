@@ -1,4 +1,4 @@
-package i.am.eipeks.traka;
+package i.am.eipeks.traka.activities;
 
 import android.Manifest;
 import android.content.Intent;
@@ -9,9 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,12 +22,17 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.firebase.auth.FirebaseAuth;
+
+import i.am.eipeks.traka.R;
 
 
 public class LocationActivity extends AppCompatActivity implements
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
+
+    private FirebaseAuth auth;
 
     private static final int MY_PERMISSION_REQUEST_CODE = 7171;
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 7172;
@@ -58,6 +61,9 @@ public class LocationActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.location);
+
+        auth = FirebaseAuth.getInstance();
+        Toast.makeText(this, auth.getCurrentUser().getDisplayName().concat("\n").concat(auth.getCurrentUser().getEmail()), Toast.LENGTH_SHORT).show();
 
         currentLocation = (TextView) findViewById(R.id.location_coordinates);
 

@@ -1,4 +1,4 @@
-package i.am.eipeks.traka;
+package i.am.eipeks.traka.activities;
 
 import android.location.Criteria;
 import android.location.LocationManager;
@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.List;
+
+import i.am.eipeks.traka.R;
 
 public class Home extends AppCompatActivity implements View.OnClickListener {
 

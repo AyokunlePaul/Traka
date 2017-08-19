@@ -8,7 +8,7 @@
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColorHint="@android:color/holo_blue_light"
+        android:textColorHint="@color/colorPrimary"
         android:layout_above="@+id/password_text_input_layout"
         android:id="@+id/email_text_input_layout"
         android:theme="@style/EditTextTheme">
@@ -27,7 +27,7 @@
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColorHint="@android:color/holo_blue_light"
+        android:textColorHint="@color/colorPrimary"
         android:layout_centerInParent="true"
         android:id="@+id/password_text_input_layout"
         android:theme="@style/EditTextTheme">
@@ -38,7 +38,8 @@
             android:inputType="textPassword"
             android:hint="@string/password"
             android:lines="1"
-            android:fontFamily="cursive"/>
+            android:fontFamily="cursive"
+            android:id="@+id/password"/>
 
     </android.support.design.widget.TextInputLayout>
 
@@ -46,16 +47,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/login"
-        android:background="@null"
+        android:background="@color/colorPrimary"
         android:layout_below="@+id/password_text_input_layout"
         android:text="@string/sign_in"
         android:textAllCaps="false"
-        android:textColor="@android:color/holo_blue_light"/>
+        android:layout_marginTop="20dp"
+        android:textColor="@android:color/white"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/login"
+        android:layout_below="@+id/or"
         android:id="@+id/no_account"
         android:orientation="horizontal"
         android:gravity="center">
@@ -80,7 +82,8 @@
             android:textAlignment="textStart"
             android:layout_gravity="start"
             android:textAllCaps="false"
-            android:textColor="@android:color/holo_blue_light"/>
+            android:id="@+id/forgot_password"
+            android:textColor="@color/colorPrimary"/>
 
     </LinearLayout>
 
@@ -88,16 +91,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/or"
-        android:layout_below="@+id/no_account"
+        android:layout_below="@+id/login"
         android:layout_centerHorizontal="true"
-        android:id="@+id/or"/>
-
-    <com.google.android.gms.common.SignInButton
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_below="@+id/or"
         android:layout_marginTop="20dp"
-        android:id="@+id/google_sign_in"/>
+        android:id="@+id/or"/>
 
 </RelativeLayout>
