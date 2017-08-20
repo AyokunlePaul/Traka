@@ -63,7 +63,7 @@ public class LocationActivity extends AppCompatActivity implements
         setContentView(R.layout.location);
 
         auth = FirebaseAuth.getInstance();
-        Toast.makeText(this, auth.getCurrentUser().getDisplayName().concat("\n").concat(auth.getCurrentUser().getEmail()), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, auth.getCurrentUser().getDisplayName().concat("\n").concat(auth.getCurrentUser().getEmail()), Toast.LENGTH_SHORT).show();
 
         currentLocation = (TextView) findViewById(R.id.location_coordinates);
 

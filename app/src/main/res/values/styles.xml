@@ -13,7 +13,7 @@
     </style>
 
     <style name="EditTextTheme" parent="AppTheme">
-        <item name="colorAccent">@android:color/holo_blue_light</item>
+        <item name="colorAccent">@color/colorPrimary</item>
     </style>
 
 </resources>
