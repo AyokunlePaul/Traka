@@ -1,6 +1,7 @@
 package i.am.eipeks.traka.authentication;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -18,6 +19,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 import i.am.eipeks.traka.R;
+import i.am.eipeks.traka.activities.LocationActivity;
+
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
 
 public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
@@ -82,10 +86,37 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                                             createUser(view, email, password);
                                         }
                                     }).show();
-                            Toast.makeText(SignUp.this, task.getException().toString(), Toast.LENGTH_SHORT).show();
-
+//                            Toast.makeText(SignUp.this, task.getException().toString(), Toast.LENGTH_SHORT).show();
+                        } else {
+                            login(view, email, password);
                         }
                     }
                 });
     }
+
+    private void login(final View view, final String email, final String password){
+        auth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        try{
+                            if (task.isSuccessful()){
+                                startActivity(new Intent(SignUp.this, LocationActivity.class));
+                            } else {
+                                Snackbar.make(view, "Login failed", Snackbar.LENGTH_INDEFINITE)
+                                        .setAction("Retry", new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                login(view, email, password);
+                                            }
+                                        }).setActionTextColor(getResources().getColor(R.color.colorPrimary))
+                                        .show();
+                            }
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+                });
+    }
+
 }
