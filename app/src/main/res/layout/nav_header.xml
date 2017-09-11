@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="200dp"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    card_view:cardBackground="@android:color/white"
+    card_view:cardBackgroundColor="@android:color/white"
     card_view:cardElevation="15dp">
 
     <LinearLayout

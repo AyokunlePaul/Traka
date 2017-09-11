@@ -7,9 +7,6 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import i.am.eipeks.traka.util.fragments.Activities;
 import i.am.eipeks.traka.util.fragments.Contacts;
 
-/**
- * Created by INVENTAR on 11/09/2017.
- */
 
 public class PagerAdapter extends FragmentStatePagerAdapter {
 

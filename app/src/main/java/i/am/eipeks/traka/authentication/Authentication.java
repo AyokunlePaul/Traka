@@ -23,13 +23,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import i.am.eipeks.traka.R;
+import i.am.eipeks.traka.activities.Home;
 import i.am.eipeks.traka.activities.LocationActivity;
 
 
 public class Authentication extends AppCompatActivity implements
         View.OnClickListener {
 
-    private Button signInButton, forgotPasswordButton, signUpButton;
+    public Button signInButton, forgotPasswordButton, signUpButton;
     private TextInputLayout emailTextInputLayout, passwordTextInputLayout;
     private EditText email, password;
 
@@ -64,7 +65,7 @@ public class Authentication extends AppCompatActivity implements
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = auth.getCurrentUser();
                 if (user != null){
-                    startActivity(new Intent(Authentication.this, LocationActivity.class));
+                    startActivity(new Intent(Authentication.this, Home.class));
                 } else {
                     Toast.makeText(Authentication.this, "Please sign in", Toast.LENGTH_SHORT).show();
                 }

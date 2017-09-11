@@ -19,4 +19,6 @@
     <string name="last_name">Last Name</string>
     <string name="email">Email</string>
     <string name="confirm_password">Confirm Password</string>
+    <string name="drawer_opened">"Open navigation drawer"</string>
+    <string name="drawer_closed">"Close navigation drawer"</string>
 </resources>
