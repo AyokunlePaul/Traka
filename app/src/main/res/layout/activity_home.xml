@@ -20,7 +20,8 @@
             <android.support.v7.widget.Toolbar
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/tool_bar"/>
+                android:id="@+id/tool_bar"
+                app:titleTextColor="@android:color/white"/>
 
         </android.support.design.widget.AppBarLayout>
 
@@ -32,9 +33,9 @@
             app:tabBackground="@android:color/white"
             app:tabMode="fixed"
             app:tabGravity="fill"
-            app:tabTextColor="@color/colorPrimary"
-            app:tabIndicatorHeight="5dp"
-            app:tabSelectedTextColor="@android:color/darker_gray"
+            app:tabTextColor="@color/tabText"
+            app:tabIndicatorHeight="2dp"
+            app:tabSelectedTextColor="@color/colorPrimary"
             android:minHeight="?attr/actionBarSize"/>
 
         <android.support.v4.view.ViewPager
