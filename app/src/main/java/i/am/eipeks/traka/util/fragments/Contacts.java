@@ -1,7 +1,6 @@
 package i.am.eipeks.traka.util.fragments;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
