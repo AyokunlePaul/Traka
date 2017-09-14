@@ -37,6 +37,7 @@ public class Home extends AppCompatActivity{
 
         navigationView.setItemIconTintList(null);
         drawerLayout.addDrawerListener(toggle);
+//        drawerLayout.set
         toggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 //        getSupportActionBar().setHideOnContentScrollEnabled(true);

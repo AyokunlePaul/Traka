@@ -1,11 +1,18 @@
 package i.am.eipeks.traka.util.fragments;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.ContentResolver;
+import android.content.DialogInterface;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,15 +22,21 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import i.am.eipeks.traka.R;
 import i.am.eipeks.traka.adapters.ContactListAdapter;
 import i.am.eipeks.traka.util.Contact;
 
-public class Contacts extends Fragment {
+public class Contacts extends Fragment implements ContactListAdapter.CardViewClickListener, View.OnClickListener {
 
     private ContentResolver resolver;
     private RecyclerView recyclerView;
+    private static final int PERMISSION_CODE = 1010;
+    private boolean isRequestGranted = false;
+    private ArrayList<Contact> contactsList;
+    private AlertDialog dialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -32,64 +45,99 @@ public class Contacts extends Fragment {
 
         recyclerView = (RecyclerView) contacts.findViewById(R.id.contacts_list);
 
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED){
+            Toast.makeText(getContext(), "Permission granted", Toast.LENGTH_SHORT).show();
+            isRequestGranted = true;
+        } else {
+            requestPermissions(new String[]{Manifest.permission.READ_CONTACTS}, PERMISSION_CODE);
+        }
         getContactsList();
 
         return contacts;
     }
 
     private void getContactsList(){
-        final ArrayList<Contact> contacts = new ArrayList<>();
-        final Cursor cursor = resolver.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
+        if (isRequestGranted){
+            final Cursor contactsCursor = resolver.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, null, null, null);
 
-        AsyncTask<Void, Void, ArrayList<Contact>> task = new AsyncTask<Void, Void, ArrayList<Contact>>() {
+            new AsyncTask<Void, Void, Void>() {
 
-            @Override
-            protected void onPreExecute() {
-                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
-            }
-
-            @Override
-            protected ArrayList<Contact> doInBackground(Void... params) {
-                if (cursor != null){
-                    if (cursor.getCount() > 0){
-                        while (cursor.moveToFirst()){
-                            try{
-                                String id = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.Contacts._ID));
-                                String name = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME));
-                                String phoneNumber = "";
-
-                                if (cursor.getInt(cursor.getColumnIndexOrThrow(ContactsContract.Contacts.HAS_PHONE_NUMBER)) > 0){
-                                    Cursor phoneNumberCursor = resolver.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                                            null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?",
-                                            new String[]{id}, null);
-                                    if (phoneNumberCursor != null){
-                                        while (phoneNumberCursor.moveToFirst()){
-                                            phoneNumber = phoneNumberCursor.getString(phoneNumberCursor
-                                                    .getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.NUMBER));
-
-                                        }
-                                        phoneNumberCursor.close();
-                                    }
-                                }
-                                contacts.add(new Contact(id, name, phoneNumber));
-                            } catch (Exception e){
-                                e.printStackTrace();
-                            }
-                        }
-                        cursor.close();
-                    }
+                @Override
+                protected void onPreExecute() {
+                    contactsList = new ArrayList<>();
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                    recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
+                    recyclerView.setAdapter(new ContactListAdapter(getContext(), contactsList));
                 }
-                return contacts;
-            }
 
-            @Override
-            protected void onPostExecute(ArrayList<Contact> contacts) {
-                Toast.makeText(getContext(), contacts.size(), Toast.LENGTH_SHORT).show();
-                recyclerView.setAdapter(new ContactListAdapter(getContext(), contacts));
-            }
-        };
-        task.execute();
+                @Override
+                protected Void doInBackground(Void... voids) {
+                    if (contactsCursor != null){
+                        if (contactsCursor.getCount() > 0 && contactsCursor.moveToFirst()){
+                            do {
+                                String id = contactsCursor.getString(contactsCursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone._ID));
+                                String contactName = contactsCursor.getString(contactsCursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+                                String contactPhone = contactsCursor.getString(contactsCursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                                contactsList.add(new Contact(id, contactName, contactPhone));
+                            } while (contactsCursor.moveToNext());
+                            contactsCursor.close();
+                        }
+                    }
+                    return null;
+                }
+
+                @Override
+                protected void onPostExecute(Void aVoid) {
+                    Collections.sort(contactsList, new Comparator<Contact>() {
+                        @Override
+                        public int compare(Contact first, Contact second) {
+                            return first.getContactName().compareTo(second.getContactName());
+                        }
+                    });
+                    ((ContactListAdapter)recyclerView.getAdapter()).setOnCardViewClickListener(Contacts.this);
+                    (recyclerView.getAdapter()).notifyDataSetChanged();
+                }
+            }.execute();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode){
+            case PERMISSION_CODE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    isRequestGranted = true;
+                } else {
+                    Toast.makeText(getContext(), "Permission denied", Toast.LENGTH_SHORT).show();
+                    getActivity().finish();
+                }
+                break;
+        }
+    }
+
+    @Override
+    public void onCardViewClick(Contact contact, int position) {
+//        @SuppressLint("InflateParams")
+//        View view = LayoutInflater.from(getContext()).inflate(R.layout.contact_dialog_layout, null);
+        dialog = new AlertDialog.Builder(getContext())
+                .setMessage("Testing...")
+                .setCancelable(true)
+                .setPositiveButton("Done", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                })
+                .create();
+        dialog.show();
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+
+        }
+
     }
 
 }

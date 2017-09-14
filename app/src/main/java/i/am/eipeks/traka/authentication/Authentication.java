@@ -136,7 +136,7 @@ public class Authentication extends AppCompatActivity implements
                                         }
                                     }).show();
                         } else {
-                            startActivity(new Intent(Authentication.this, LocationActivity.class));
+                            startActivity(new Intent(Authentication.this, Home.class));
                         }
                     }
                 });
