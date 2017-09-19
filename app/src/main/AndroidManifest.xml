@@ -17,7 +17,13 @@
         android:theme="@style/AppTheme.NoActionBar" >
 
         <activity android:name=".activities.Home"/>
-        <activity android:name=".activities.LocationActivity"/>
+        <activity android:name=".activities.LocationActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".activities.MapsActivity"
             android:theme="@style/AppTheme"/>
         <activity android:name=".authentication.Authentication">
