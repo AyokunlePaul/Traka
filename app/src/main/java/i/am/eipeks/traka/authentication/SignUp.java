@@ -17,9 +17,14 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import i.am.eipeks.traka.R;
+import i.am.eipeks.traka.activities.Home;
 import i.am.eipeks.traka.activities.LocationActivity;
+import i.am.eipeks.traka.util.User;
 
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
 
@@ -28,10 +33,11 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
     private Button signUpButton;
 
     private TextInputLayout firstNameTextInputLayout, lastNameTextInputLayout,
-            emailTextInputLayout, passwordTextInputLayout, confirmPasswordTextInputLayout;
-    private EditText firstName, lastName, email, password, confirmPassword;
+            emailTextInputLayout, passwordTextInputLayout, confirmPasswordTextInputLayout, phoneNumberTextInputLayout;
+    private EditText firstName, lastName, email, password, confirmPassword, phoneNumber;
 
     private FirebaseAuth auth;
+    private DatabaseReference reference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +45,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
         setContentView(R.layout.sign_up);
 
         auth = FirebaseAuth.getInstance();
+        reference = FirebaseDatabase.getInstance().getReference();
 
         signUpButton = (Button) findViewById(R.id.sign_up_button);
 
@@ -47,12 +54,14 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
         emailTextInputLayout = (TextInputLayout) findViewById(R.id.email_text_input_layout);
         passwordTextInputLayout = (TextInputLayout) findViewById(R.id.password_text_input_layout);
         confirmPasswordTextInputLayout = (TextInputLayout) findViewById(R.id.confirm_password_text_input_layout);
+        phoneNumberTextInputLayout = (TextInputLayout) findViewById(R.id.phone_number_text_input_layout);
 
         firstName = (EditText) findViewById(R.id.first_name);
         lastName = (EditText) findViewById(R.id.last_name);
         email = (EditText) findViewById(R.id.email_sign_up);
         password = (EditText) findViewById(R.id.password_sign_up);
         confirmPassword = (EditText) findViewById(R.id.confirm_password_sign_up);
+        phoneNumber = (EditText) findViewById(R.id.phone_number);
 
         signUpButton.setOnClickListener(this);
 
@@ -88,7 +97,20 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                                     }).show();
 //                            Toast.makeText(SignUp.this, task.getException().toString(), Toast.LENGTH_SHORT).show();
                         } else {
-                            login(view, email, password);
+                            String fullName = String.format("%s %s", firstName.getText().toString(), lastName.getText().toString());
+                            User currentUser = new User(fullName, email, phoneNumber.getText().toString());
+
+                            reference.child("user").child(task.getResult().getUser().getUid()).setValue(currentUser).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()){
+                                        Toast.makeText(SignUp.this, "Configured", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(SignUp.this, "An error occurred", Toast.LENGTH_SHORT).show();
+                                    }
+                                    login(view, email, password);
+                                }
+                            });
                         }
                     }
                 });
@@ -101,7 +123,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         try{
                             if (task.isSuccessful()){
-                                startActivity(new Intent(SignUp.this, LocationActivity.class));
+                                startActivity(new Intent(SignUp.this, Home.class));
                             } else {
                                 Snackbar.make(view, "Login failed", Snackbar.LENGTH_INDEFINITE)
                                         .setAction("Retry", new View.OnClickListener() {

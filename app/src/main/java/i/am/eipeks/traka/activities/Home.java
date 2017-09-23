@@ -11,8 +11,12 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import i.am.eipeks.traka.R;
 import i.am.eipeks.traka.adapters.PagerAdapter;
+import i.am.eipeks.traka.util.User;
 
 public class Home extends AppCompatActivity{
 
@@ -37,10 +41,12 @@ public class Home extends AppCompatActivity{
 
         navigationView.setItemIconTintList(null);
         drawerLayout.addDrawerListener(toggle);
-//        drawerLayout.set
+
         toggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setHideOnContentScrollEnabled(true);
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+
     }
 
     @Override
