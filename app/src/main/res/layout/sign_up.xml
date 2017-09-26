@@ -85,7 +85,7 @@
             android:id="@+id/password_text_input_layout"
             android:textColorHint="@color/colorPrimary"
             app:passwordToggleEnabled="true"
-            app:passwordToggleDrawable="@drawable/ic_visibility_off_black_24dp"
+            app:passwordToggleTintMode="src_atop"
             app:passwordToggleTint="@color/colorPrimary">
 
             <EditText
@@ -104,7 +104,7 @@
             android:id="@+id/confirm_password_text_input_layout"
             android:textColorHint="@color/colorPrimary"
             app:passwordToggleEnabled="true"
-            app:passwordToggleDrawable="@drawable/ic_visibility_off_black_24dp"
+            app:passwordToggleTintMode="src_atop"
             app:passwordToggleTint="@color/colorPrimary">
 
             <EditText
