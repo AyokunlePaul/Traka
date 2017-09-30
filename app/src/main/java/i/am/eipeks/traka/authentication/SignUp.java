@@ -30,8 +30,6 @@ import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
 
 public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
-    private Button signUpButton;
-
     private TextInputLayout firstNameTextInputLayout, lastNameTextInputLayout,
             emailTextInputLayout, passwordTextInputLayout, confirmPasswordTextInputLayout, phoneNumberTextInputLayout;
     private EditText firstName, lastName, email, password, confirmPassword, phoneNumber;
@@ -47,21 +45,21 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
         auth = FirebaseAuth.getInstance();
         reference = FirebaseDatabase.getInstance().getReference();
 
-        signUpButton = (Button) findViewById(R.id.sign_up_button);
+        Button signUpButton = findViewById(R.id.sign_up_button);
 
-        firstNameTextInputLayout = (TextInputLayout) findViewById(R.id.first_name_text_input_layout);
-        lastNameTextInputLayout = (TextInputLayout) findViewById(R.id.last_name_text_input_layout);
-        emailTextInputLayout = (TextInputLayout) findViewById(R.id.email_text_input_layout);
-        passwordTextInputLayout = (TextInputLayout) findViewById(R.id.password_text_input_layout);
-        confirmPasswordTextInputLayout = (TextInputLayout) findViewById(R.id.confirm_password_text_input_layout);
-        phoneNumberTextInputLayout = (TextInputLayout) findViewById(R.id.phone_number_text_input_layout);
+        firstNameTextInputLayout = findViewById(R.id.first_name_text_input_layout);
+        lastNameTextInputLayout = findViewById(R.id.last_name_text_input_layout);
+        emailTextInputLayout = findViewById(R.id.email_text_input_layout);
+        passwordTextInputLayout = findViewById(R.id.password_text_input_layout);
+        confirmPasswordTextInputLayout = findViewById(R.id.confirm_password_text_input_layout);
+        phoneNumberTextInputLayout = findViewById(R.id.phone_number_text_input_layout);
 
-        firstName = (EditText) findViewById(R.id.first_name);
-        lastName = (EditText) findViewById(R.id.last_name);
-        email = (EditText) findViewById(R.id.email_sign_up);
-        password = (EditText) findViewById(R.id.password_sign_up);
-        confirmPassword = (EditText) findViewById(R.id.confirm_password_sign_up);
-        phoneNumber = (EditText) findViewById(R.id.phone_number);
+        firstName = findViewById(R.id.first_name);
+        lastName = findViewById(R.id.last_name);
+        email = findViewById(R.id.email_sign_up);
+        password = findViewById(R.id.password_sign_up);
+        confirmPassword = findViewById(R.id.confirm_password_sign_up);
+        phoneNumber = findViewById(R.id.phone_number);
 
         signUpButton.setOnClickListener(this);
 
@@ -111,6 +109,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                                     login(view, email, password);
                                 }
                             });
+
                         }
                     }
                 });

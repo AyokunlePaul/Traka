@@ -47,9 +47,9 @@ public class LocationActivity extends AppCompatActivity implements
     private GoogleApiClient apiClient;
     private Location lastLocation;
 
-    private static int UPDATE_INTERVAL = 5000;
-    private static int FASTEST_INTERVAL = 3000;
-    private static int DISPLACEMENT = 10;
+    private static int UPDATE_INTERVAL = 2000;
+    private static int FASTEST_INTERVAL = 1000;
+    private static int DISPLACEMENT = 5;
 
     private double latitude, longitude;
 
@@ -65,17 +65,17 @@ public class LocationActivity extends AppCompatActivity implements
         auth = FirebaseAuth.getInstance();
 //        Toast.makeText(this, auth.getCurrentUser().getDisplayName().concat("\n").concat(auth.getCurrentUser().getEmail()), Toast.LENGTH_SHORT).show();
 
-        currentLocation = (TextView) findViewById(R.id.location_coordinates);
+        currentLocation = findViewById(R.id.location_coordinates);
 
-        locationUpdates = (Button) findViewById(R.id.start_location_updates);
-        getLocation = (Button) findViewById(R.id.get_current_location);
-        displayOnMap = (Button) findViewById(R.id.see_on_map);
-        go = (Button) findViewById(R.id.go);
+        locationUpdates = findViewById(R.id.start_location_updates);
+        getLocation = findViewById(R.id.get_current_location);
+        displayOnMap = findViewById(R.id.see_on_map);
+        go = findViewById(R.id.go);
 
-        textInputLayout = (TextInputLayout) findViewById(R.id.name_of_place_input_layout);
+        textInputLayout = findViewById(R.id.name_of_place_input_layout);
         textInputLayout.setHint(getResources().getString(R.string.name_of_place));
 
-        nameOfPlace = (EditText) findViewById(R.id.name_of_place);
+        nameOfPlace = findViewById(R.id.name_of_place);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {

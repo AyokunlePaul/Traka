@@ -45,14 +45,14 @@ public class Authentication extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.authentication);
 
-        forgotPasswordButton = (Button) findViewById(R.id.forgot_password);
-        signInButton = (Button) findViewById(R.id.login);
-        signUpButton = (Button) findViewById(R.id.sign_up);
+        forgotPasswordButton = findViewById(R.id.forgot_password);
+        signInButton = findViewById(R.id.login);
+        signUpButton = findViewById(R.id.sign_up);
 
-        email = (EditText) findViewById(R.id.username);
-        password = (EditText) findViewById(R.id.password);
-        emailTextInputLayout = (TextInputLayout) findViewById(R.id.email_text_input_layout);
-        passwordTextInputLayout = (TextInputLayout) findViewById(R.id.password_text_input_layout);
+        email = findViewById(R.id.username);
+        password = findViewById(R.id.password);
+        emailTextInputLayout = findViewById(R.id.email_text_input_layout);
+        passwordTextInputLayout = findViewById(R.id.password_text_input_layout);
 
         forgotPasswordButton.setOnClickListener(this);
         signInButton.setOnClickListener(this);
