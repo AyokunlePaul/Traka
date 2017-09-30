@@ -28,7 +28,8 @@ import i.am.eipeks.traka.R;
 import i.am.eipeks.traka.adapters.ContactListAdapter;
 import i.am.eipeks.traka.util.Contact;
 
-public class Contacts extends Fragment implements ContactListAdapter.CardViewClickListener, View.OnClickListener {
+public class Contacts extends Fragment implements
+        ContactListAdapter.CardViewClickListener{
 
     private ContentResolver resolver;
     private RecyclerView recyclerView;
@@ -42,10 +43,10 @@ public class Contacts extends Fragment implements ContactListAdapter.CardViewCli
         View contacts = inflater.inflate(R.layout.fragment_contacts, container, false);
         resolver = getContext().getContentResolver();
 
-        recyclerView = (RecyclerView) contacts.findViewById(R.id.contacts_list);
+        recyclerView = contacts.findViewById(R.id.contacts_list);
 
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED){
-            Toast.makeText(getContext(), "Permission granted", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getContext(), "Permission granted", Toast.LENGTH_SHORT).show();
             isRequestGranted = true;
         } else {
             requestPermissions(new String[]{Manifest.permission.READ_CONTACTS}, PERMISSION_CODE);
@@ -116,27 +117,6 @@ public class Contacts extends Fragment implements ContactListAdapter.CardViewCli
 
     @Override
     public void onCardViewClick(Contact contact, int position) {
-//        @SuppressLint("InflateParams")
-//        View view = LayoutInflater.from(getContext()).inflate(R.layout.contact_dialog_layout, null);
-        dialog = new AlertDialog.Builder(getContext())
-                .setMessage("Testing...")
-                .setCancelable(true)
-                .setPositiveButton("Done", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                })
-                .create();
-        dialog.show();
-    }
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()){
-
-        }
 
     }
-
 }

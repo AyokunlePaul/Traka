@@ -1,11 +1,14 @@
 package i.am.eipeks.traka.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -35,6 +38,17 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
         final Contact currentContact = this.contacts.get(position);
         holder.contactName.setText(currentContact.getContactName());
         holder.contactPhone.setText(currentContact.getContactNumber());
+        holder.contactImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                @SuppressLint("InflateParams")
+                AlertDialog dialog = new AlertDialog.Builder(context)
+                        .setView(LayoutInflater.from(context).inflate(R.layout.contact_information_layout, null))
+                        .setCancelable(true)
+                        .create();
+                dialog.show();
+            }
+        });
         holder.rootView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -59,13 +73,14 @@ public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.
 
         TextView contactName, contactPhone;
         CardView rootView;
+        ImageView contactImage;
 
         Holder(CardView cardView) {
             super(cardView);
             rootView = cardView;
-            contactName = (TextView) cardView.findViewById(R.id.contact_name);
-            contactPhone = (TextView) cardView.findViewById(R.id.contact_phone_number);
-
+            contactName = cardView.findViewById(R.id.contact_name);
+            contactPhone = cardView.findViewById(R.id.contact_phone_number);
+            contactImage = cardView.findViewById(R.id.contact_image);
         }
     }
 
